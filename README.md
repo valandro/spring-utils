@@ -2,7 +2,12 @@
 
 
 # Spring Utils
-A repository with some useful classes.
+A repository with some useful classes to be used with Spring Framework Project.
+
+
+### Author
+
+[Lucas Valandro](https://github.com/valandro)
 
 
 ### License
