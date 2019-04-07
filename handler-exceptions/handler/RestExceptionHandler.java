@@ -20,8 +20,14 @@ public class RestExceptionHandler {
 
     @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<Object> handleConstraintViolationException(ConstraintViolationException ex) {
-        ExceptionResponseBody exception = new ExceptionResponseBody(HttpStatus.BAD_REQUEST.value(), ex.getMessage());
-        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exception);
+
+        List<ExceptionResponseBody> exList = ex.getConstraintViolations()
+                                                .stream()
+                                                .map(constraintViolation ->
+                                                    new ExceptionResponseBody(HttpStatus.BAD_REQUEST.value(),
+                                                                              constraintViolation.getMessage()))
+                                                .collect(Collectors.toList());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(exList);
     }
 
     @ExceptionHandler(Exception.class)
